@@ -43,7 +43,7 @@ WooCommerce Sales Report is a custom WordPress plugin that generates an **intern
 
 ## Screenshot of Sales Report 📸
 
-![Sales Report Graph](https://bh8942.banahosting.com:2083/cpsess4937590285/viewer/home%2fdhggoioq%2fpublic_html%2fimages/Sales%20Report.png)
+![Sales Report Graph](https://clickiu.com/images/sales_report_plugin.png)
 
 <!-- Add the image once you have the chart ready -->
 
