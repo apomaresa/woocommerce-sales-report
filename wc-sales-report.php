@@ -33,3 +33,22 @@ function wc_sales_report_create_table()
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
     dbDelta($sql);
 }
+
+// Hook to capture sales data when an order is completed
+add_action('woocommerce_order_status_completed', 'wc_sales_report_save_sales_data');
+
+function wc_sales_report_save_sales_data($order_id)
+{
+    $order = wc_get_order($order_id);
+    $country = $order->get_shipping_country();
+    $total_sales = $order->get_total();
+
+    // Insert sales data into custom table
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'sales_by_country';
+    $wpdb->insert($table_name, [
+        'country' => $country,
+        'total_sales' => $total_sales,
+        'date' => current_time('mysql')
+    ]);
+}
