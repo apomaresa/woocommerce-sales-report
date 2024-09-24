@@ -77,3 +77,45 @@ function wc_sales_report_page()
     </div>
 <?php
 }
+
+// Enqueue Chart.js library and generate the sales report chart
+add_action('admin_enqueue_scripts', 'wc_sales_report_enqueue_chart_js');
+
+function wc_sales_report_enqueue_chart_js()
+{
+    wp_enqueue_script('chart-js', 'https://cdn.jsdelivr.net/npm/chart.js', [], null, true);
+    wp_add_inline_script('chart-js', wc_sales_report_generate_chart());
+}
+
+// Generate sales report chart using Chart.js
+function wc_sales_report_generate_chart()
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'sales_by_country';
+    $results = $wpdb->get_results("SELECT country, SUM(total_sales) as sales FROM $table_name GROUP BY country");
+
+    $countries = [];
+    $sales = [];
+
+    foreach ($results as $row) {
+        $countries[] = $row->country;
+        $sales[] = $row->sales;
+    }
+
+    return "
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: " . json_encode($countries) . ",
+                datasets: [{
+                    label: 'Sales by Country',
+                    data: " . json_encode($sales) . ",
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
+    ";
+}
