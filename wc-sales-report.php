@@ -52,3 +52,17 @@ function wc_sales_report_save_sales_data($order_id)
         'date' => current_time('mysql')
     ]);
 }
+
+// Add a new menu page to display the sales report in the admin dashboard
+add_action('admin_menu', 'wc_sales_report_menu');
+
+function wc_sales_report_menu()
+{
+    add_menu_page(
+        'Sales Report', // Page title
+        'Sales Report', // Menu title
+        'manage_options',    // Capability required to access
+        'wc-sales-report',   // Menu slug
+        'wc_sales_report_page' // Callback function to render the page
+    );
+}
