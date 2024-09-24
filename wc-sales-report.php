@@ -119,3 +119,13 @@ function wc_sales_report_generate_chart()
         });
     ";
 }
+
+// Clean up database when the plugin is deactivated
+register_deactivation_hook(__FILE__, 'wc_sales_report_cleanup');
+
+function wc_sales_report_cleanup()
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'sales_by_country';
+    $wpdb->query("DROP TABLE IF EXISTS $table_name");
+}
