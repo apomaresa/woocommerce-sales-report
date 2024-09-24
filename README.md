@@ -45,8 +45,6 @@ WooCommerce Sales Report is a custom WordPress plugin that generates an **intern
 
 ![Sales Report Graph](https://clickiu.com/images/sales_report_plugin.png)
 
-<!-- Add the image once you have the chart ready -->
-
 ## How it Works ⚙️
 
 - The plugin hooks into WooCommerce’s `woocommerce_order_status_completed` action to log the country and total sales for each completed order.
