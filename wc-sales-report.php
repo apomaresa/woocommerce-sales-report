@@ -66,3 +66,14 @@ function wc_sales_report_menu()
         'wc_sales_report_page' // Callback function to render the page
     );
 }
+
+// Callback function to render the sales report page in the dashboard
+function wc_sales_report_page()
+{
+?>
+    <div class="wrap">
+        <h1>International Sales Report</h1>
+        <canvas id="salesChart"></canvas>
+    </div>
+<?php
+}
